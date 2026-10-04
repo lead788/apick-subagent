@@ -11,7 +11,7 @@ function install(options={}){
     const packageRoot=path.resolve(__dirname,'..'),cli=path.join(__dirname,'cli.cjs');
     const toml=read(p.codex),prior=ownedBlock(toml);if(!prior&&/^\s*\[mcp_servers\.apick_subagent\]/m.test(toml))throw Error('기존 apick_subagent 설정이 있어 덮어쓰지 않았습니다.');
     if(prior&&old.codexBlock&&HASH(prior)!==old.codexBlock)throw Error('사용자가 변경한 연결 설정을 보존했습니다.');
-    const block=BEGIN+'\n[mcp_servers.apick_subagent]\ncommand = '+JSON.stringify(process.execPath)+'\nargs = ['+JSON.stringify(cli)+', "mcp"]\n'+END;
+    const block=BEGIN+'\n[mcp_servers.apick_subagent]\ncommand = '+JSON.stringify(process.execPath)+'\nargs = ['+JSON.stringify(cli)+', "mcp"]\nenv_vars = ["APICK_API_KEY"]\n'+END;
     const claude=JSON.parse(read(p.claude)||'{}');const entry={command:process.execPath,args:[cli,'mcp']};const previous=claude.mcpServers?.['apick-subagent'];
     if(previous&&(!old.claudeEntry||HASH(JSON.stringify(previous))!==old.claudeEntry))throw Error('기존 Claude 연결 설정을 보존했습니다.');
     const sources=['SKILL.md','agents/openai.yaml'];
