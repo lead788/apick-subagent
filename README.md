@@ -4,6 +4,8 @@ Codex·Claude Code에서 대량 자료의 조사·추출·요약·비교를 위�
 
 ## 설치
 
+각 프로젝트에 전달할 지시문과 운영체제별 키 설정은 [프로젝트별 연동 지침](https://github.com/lead788/apick-subagent/blob/main/docs/project-integration.md)을 참고하세요.
+
 Node.js 22.17 이상에서 프로젝트 폴더를 열고 실행합니다.
 
 ```sh

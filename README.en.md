@@ -1,5 +1,7 @@
 # APICK Subagent
 
+See the [project integration guide (Korean)](https://github.com/lead788/apick-subagent/blob/main/docs/project-integration.md) for reusable project instructions and operating-system-specific API key setup.
+
 The installation package for the `apick-agent` product on [apick.app](https://apick.app/subagent). Delegate inventory, extraction, summarization and comparison from Codex or Claude Code.
 
 Requires Node.js 22.17 or later:
