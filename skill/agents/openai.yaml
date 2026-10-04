@@ -1,0 +1,6 @@
+interface:
+  display_name: "에이픽 서브에이전트"
+  short_description: "대량 파일 조사를 위임하고 핵심 근거를 확인해 읽기 비용을 줄입니다"
+  default_prompt: "$apick-subagent로 현재 작업 공간의 관련 자료를 조사하고 핵심 근거를 확인해 주세요."
+policy:
+  allow_implicit_invocation: true
