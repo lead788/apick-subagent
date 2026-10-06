@@ -17,7 +17,7 @@ Open the project and ask the main agent to delegate bulk reading to `apick-subag
 
 The bridge reads selected files directly from the client workspace and hashes them before uploading only missing content. Symlinks, workspace escapes and common secret files are blocked. Restrict the selected files: secret detection cannot cover every format. Use `APICK_WORKSPACE` if the client does not provide a project root.
 
-Successful work costs confirmed model cost plus 40%. Approved identical-result cache reuse costs zero and makes no external model call. There is no installation fee, base fee, per-request 1-point minimum or product quota beyond prepaid balance. Fractional points accumulate. Technical chunk sizes and worker concurrency protect reliability.
+There is no installation, setup or subscription fee. Successful work costs confirmed model cost plus 40%, with fractions rounded up per job. Each successful job costs at least 1 point, and from 2026-11-06 a job that uses AI has a 5-point base fee. Approved identical-result cache reuse and `inventory` listing make no external model call and cost 1 point. There is no product quota beyond prepaid balance. Technical chunk sizes and worker concurrency protect reliability.
 
 Tenant-isolated encrypted content expires after seven days. `retention: none` deletes after review with temporary retention of at most one hour. Immediate deletion is available. Failed/cancelled work and automatic verification failures are not charged. Main-model usage remains unconnected unless supplied; estimates are not actual subscription savings.
 

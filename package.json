@@ -1,6 +1,6 @@
 {
   "name": "apick-subagent",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "에이픽 서브에이전트: Codex·Claude Code의 조사·추출·요약·비교 위임과 근거 검수",
   "license": "MIT",
   "author": "APICK",
