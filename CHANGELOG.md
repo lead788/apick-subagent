@@ -1,3 +1,8 @@
+# 1.0.3
+
+- 요금 안내 문구를 정리했습니다. 성공한 작업만 사용량대로 정산하고 소수점은 올림하며, 2026-11-06부터 AI 사용 작업은 기본요금 5P입니다. 요금과 동작은 바뀌지 않습니다.
+- Billing notes now describe only what you are charged: successful work is billed by actual usage, fractions are rounded up, and AI jobs have a 5-point base fee from 2026-11-06. Prices and behaviour are unchanged.
+
 # 1.0.2
 
 - 요금 안내 갱신(에이픽 이용약관 제9조 개정, 2026-11-06 시행): 소수점은 작업마다 올림, 성공 작업 최소 1P, AI 사용 작업 기본요금 5P, 캐시 재사용·`inventory` 1P. 설치비·도입비·구독료는 없습니다. 동작 변경은 없습니다.
