@@ -23,7 +23,8 @@ function install(options={}){
     claude.mcpServers={...(claude.mcpServers||{}),'apick-subagent':entry};atomic(p.claude,JSON.stringify(claude,null,2)+'\n');
     for(const target of p.skills)for(const relative of sources){const dest=path.join(target,relative),bytes=fs.readFileSync(path.join(packageRoot,'skill',relative));atomic(dest,bytes);files[dest]=HASH(bytes);}
     atomic(manifestFile,JSON.stringify({version:1,files,codexBlock:HASH(block),claudeEntry:HASH(JSON.stringify(entry))},null,2));
-    return {installed:true,clients:['Codex','Claude Code'],key_configured:!!process.env.APICK_API_KEY,notice:'클라이언트를 다시 시작하세요. 설치와 실제 연결 확인은 별개입니다.'};
+    const {keySource}=require('./client.cjs'),source=keySource();
+    return {installed:true,clients:['Codex','Claude Code'],key_configured:source!=='none',key_source:source,next_step:source==='none'?'apick.app 마이페이지 > API 정보에서 연결 코드를 발급하고 apick-subagent login 에 붙여 넣으세요.':null,notice:'클라이언트를 다시 시작하세요. 설치와 실제 연결 확인은 별개입니다.'};
 }
 function uninstall(options={}){
     const p=locations(options.home),manifestFile=path.join(p.own,'install.json');const old=JSON.parse(read(manifestFile)||'{"files":{}}'),preserved=[];

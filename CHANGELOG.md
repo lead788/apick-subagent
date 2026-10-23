@@ -1,3 +1,12 @@
+# 1.0.5
+
+- 마이페이지(API 정보)에서 발급한 일회용 연결 코드를 `apick-subagent login`에 붙여 넣으면 인증키가 자동으로 연결됩니다. 코드는 10분 동안 한 번만 쓸 수 있습니다. API 키를 직접 붙여 넣는 방법도 계속 지원합니다.
+- `apick-subagent login`·`logout`을 추가했습니다. 입력은 화면에 보이지 않고, 서버에서 확인한 키만 사용자 폴더에 저장합니다. 코드와 키를 명령행 인자로 받지 않습니다.
+- `doctor`가 `key_source`(`saved`·`environment`·`none`)를 보여 주고, `install`은 키가 없으면 연결 코드 발급과 `login`을 안내합니다.
+- Paste a one-time connection code from My Page (API info) into `apick-subagent login` and the key is linked automatically. A code works once within 10 minutes. Pasting the API key directly still works.
+- Added `apick-subagent login` and `logout`. Input is hidden, only a key verified with the server is saved to the user folder, and codes or keys are never accepted as command arguments.
+- `doctor` reports `key_source` (`saved`, `environment` or `none`), and `install` points to the connection code and `login` when no key is set.
+
 # 1.0.4
 
 - 요금 안내 문구를 서버와 맞췄습니다. `README.md`·`README.en.md`·`skill/SKILL.md`와 `apick_dispatch` 도구 설명에서 시행일(2026-11-06)과 소수점 올림 표기를 뺐습니다. 요금과 동작은 바뀌지 않았습니다.

@@ -9,6 +9,7 @@ function checkSecret(text){if(SECRET_CONTENT.test(text))throw Error('인증정�
 function scanFile(file,expected){const fd=fs.openSync(file,fs.constants.O_RDONLY|(fs.constants.O_NOFOLLOW||0));const hash=crypto.createHash('sha256'),decoder=new TextDecoder('utf-8',{fatal:true}),block=Buffer.alloc(262144);let tail='',valid=true;try{let n;while((n=fs.readSync(fd,block,0,block.length,null))>0){const b=block.subarray(0,n);if(b.includes(0))valid=false;hash.update(b);try{const text=tail+decoder.decode(b,{stream:true});checkSecret(text);tail=text.slice(-512);}catch(e){if(e.code==='ERR_ENCODING_INVALID_ENCODED_DATA')valid=false;else throw e;}}try{decoder.decode();}catch(e){valid=false;}const end=fs.fstatSync(fd);if(end.size!==expected.size||end.mtimeMs!==expected.mtimeMs)throw Error('수집 중 파일이 변경되었습니다.');return valid?hash.digest('hex'):null;}finally{fs.closeSync(fd);}}
 function privateFile(){return path.join(process.env.APICK_SUBAGENT_HOME||path.join(os.homedir(),'.apick-subagent'),'credentials.json');}
 function apiKey(){if(process.env.APICK_API_KEY)return process.env.APICK_API_KEY.trim();try{return String(JSON.parse(fs.readFileSync(privateFile(),'utf8')).api_key||'').trim();}catch(e){return '';}}
+function keySource(){if(process.env.APICK_API_KEY?.trim())return 'environment';return apiKey()?'saved':'none';}
 function baseUrl(value){const u=new URL(value||'https://apick.app');if(u.protocol!=='https:'||u.username||u.password)throw Error('HTTPS 서비스 주소가 필요합니다.');return u.origin;}
 function create(options={}){
     const base=baseUrl(options.baseUrl||process.env.APICK_SUBAGENT_URL);const key=options.apiKey||apiKey();const fetcher=options.fetch||global.fetch;
@@ -46,4 +47,4 @@ function collect(root,includes,excludes=[]){
     }
     if(!result.length)throw Error('허용된 텍스트 파일을 찾지 못했습니다. include 범위를 확인하세요.');return result;
 }
-module.exports={create,collect,validateRelative,privateFile,apiKey,digest,DENY};
+module.exports={create,collect,validateRelative,privateFile,apiKey,keySource,baseUrl,digest,DENY};

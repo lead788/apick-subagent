@@ -5,7 +5,7 @@ description: 지정한 자료의 근거를 모아 검수 가능한 조사 결과
 
 # 조사 스킬 제작 예시
 
-`apick-subagent` 설치와 `APICK_API_KEY` 설정이 필요하다.
+`apick-subagent` 설치와 인증키 연결(마이페이지 연결 코드로 `apick-subagent login`, 또는 `APICK_API_KEY`)이 필요하다.
 작업 목적에 맞는 include·exclude와 검수 기준을 정한다.
 `apick_status` 확인 후 `apick_dispatch`에 조사·추출·요약·비교 중 하나를 맡긴다.
 `apick_collect` 결과에서 필요한 근거만 `apick_evidence`로 확인한다.

@@ -13,11 +13,27 @@ npm install -g apick-subagent
 apick-subagent install
 ```
 
-apick.app에서 발급받은 API 키를 `APICK_API_KEY` 환경변수로 설정하고 Codex·Claude Code를 다시 시작합니다. 키를 명령행 인자, 대화, 공개 파일에 넣지 마세요.
+이어서 인증키를 연결합니다. [apick.app 마이페이지](https://apick.app/my_page) > API 정보에서 **연결 코드 발급**을 누르고, 아래 명령을 실행한 뒤 코드를 붙여 넣고 Enter를 누릅니다. 인증키가 자동으로 이 PC의 사용자 폴더(`.apick-subagent/credentials.json`)에 저장됩니다.
+
+```sh
+apick-subagent login
+```
+
+연결 코드는 10분 동안 한 번만 쓸 수 있습니다. 새로 발급하면 이전 코드는 쓸 수 없습니다. 같은 자리에 API 키를 직접 붙여 넣어도 됩니다. 입력은 화면에 보이지 않고, 서버에서 확인한 키만 저장하므로 잘못된 값은 남지 않습니다.
+
+저장된 키는 로그아웃으로 지울 수 있습니다. 다른 계정으로 바꾸려면 `login`을 다시 실행하세요.
+
+```sh
+apick-subagent logout
+```
+
+Codex·Claude Code를 다시 시작한 뒤 연결을 확인합니다.
 
 ```sh
 apick-subagent doctor
 ```
+
+`doctor`는 키가 어디서 왔는지(`saved` 저장된 키, `environment` 환경변수, `none` 없음)도 보여 줍니다. 여러 PC나 CI에서는 `APICK_API_KEY` 환경변수를 쓰는 방법도 계속 지원합니다. 어느 방법이든 코드와 키를 명령행 인자, 대화, 공개 파일에 넣지 마세요.
 
 설치기는 기존 로그인·모델·다른 MCP 설정을 보존합니다. 설정 백업은 사용자 폴더의 `.apick-subagent/backups`에 보관합니다. 제거는 `apick-subagent uninstall`입니다. 패키지가 만든 설정만 제거하며 사용자가 수정한 파일·키·백업은 보존합니다.
 

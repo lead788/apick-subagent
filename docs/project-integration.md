@@ -11,7 +11,7 @@
 이 승인 범위에서는 건별 승인을 반복해서 묻지 않는다. 다른 유료 API에는 적용하지 않는다.
 
 1. 기존 사용자 지침·인증·모델·다른 MCP 설정을 보존한다. 설치 여부와 실제 연결을 구분한다.
-2. 연결은 apick_status로 확인한다. 키가 없으면 APICK_API_KEY 설정만 안내하며 키를 대화로 요청하거나 출력하지 않는다.
+2. 연결은 apick_status로 확인한다. 키가 없으면 사용자가 마이페이지에서 연결 코드를 발급해 `apick-subagent login`을 직접 실행하도록 안내하며, 연결 코드와 키를 대화로 요청하거나 출력하지 않는다.
 3. 사용자가 허용한 파일의 조사(inventory)·추출(extract)·요약(summarize)·비교(compare)를 맡긴다.
    유료 처리는 위에서 승인한 프로젝트 작업 범위에 한정한다. 외부 전송 금지 자료와 무관한 작업으로 범위를 넓히지 않는다.
 4. 원문을 전부 읽고 다시 보내지 않는다. 현재 프로젝트 안의 필요한 상대경로 include·exclude와 목표·검수 기준을 apick_dispatch에 전달한다.
@@ -45,32 +45,31 @@ apick-subagent install
 
 설치기는 Codex·Claude Code의 스킬과 MCP 설정을 구성합니다. 같은 컴퓨터의 사용자 계정에서는 한 번 설치하면 됩니다. 각 프로젝트마다 위 지시문과 작업 범위를 적용합니다. 기존 로그인·모델·다른 MCP 설정은 보존합니다.
 
-### Windows PowerShell
+### 인증키 연결 (모든 운영체제 공통)
 
-키를 화면과 명령 기록에 직접 쓰지 않고 입력합니다. 아래는 현재 터미널과 현재 Windows 사용자 환경변수에 저장하는 예입니다.
+apick.app 마이페이지 > API 정보에서 **연결 코드 발급**을 누른 뒤 아무 터미널에서나 실행합니다. 환경변수 설정은 필요 없습니다.
 
-```powershell
-$apickSecureKey = Read-Host 'APICK API 키' -AsSecureString
-$apickPlainKey = [System.Net.NetworkCredential]::new('', $apickSecureKey).Password
-[Environment]::SetEnvironmentVariable('APICK_API_KEY', $apickPlainKey, 'User')
-$env:APICK_API_KEY = $apickPlainKey
-Remove-Variable apickPlainKey, apickSecureKey
+```sh
+apick-subagent login
+```
+
+코드를 붙여 넣고 Enter를 누르면 인증키가 자동으로 이 PC의 사용자 폴더(`.apick-subagent/credentials.json`)에 저장됩니다. 연결 코드는 10분 동안 한 번만 쓸 수 있고, 새로 발급하면 이전 코드는 쓸 수 없습니다. 코드 대신 API 키를 직접 붙여 넣어도 됩니다. 입력은 화면에 보이지 않으며, 서버에서 확인한 키만 저장합니다. Windows PowerShell, macOS·Linux 터미널 모두 같은 명령입니다. 코드나 키를 명령행 뒤에 직접 붙이면 거절합니다.
+
+계정에 허용 IP를 설정했다면 이 PC의 IP도 허용 목록에 있어야 연결 확인을 통과합니다.
+
+저장된 키는 같은 사용자 계정의 프로그램이 읽을 수 있으므로 공유 계정에서는 쓰지 마세요. 키를 바꾸거나 PC를 넘길 때는 `apick-subagent logout`으로 지웁니다. 실행 중인 Codex·Claude Code를 다시 시작해야 새 키가 적용됩니다.
+
+### 환경변수로 설정하는 경우 (CI·서버 등)
+
+자동화 환경에서는 `APICK_API_KEY` 환경변수를 쓸 수 있습니다. 환경변수가 있으면 저장된 키보다 먼저 쓰입니다. 환경변수는 비밀 저장소가 아니므로 공유 계정에 설정하지 마세요. 키를 프로젝트의 `.env`, 지침 파일, 공개 MCP JSON, Git에 넣지 않습니다.
+
+### 설정 확인
+
+```sh
 apick-subagent doctor
 ```
 
-환경변수는 비밀 저장소가 아니므로 같은 사용자 권한의 프로그램에서 읽을 수 있습니다. 공유 계정에 설정하지 마세요. 실행 중인 Codex·Claude Code를 완전히 종료하고 새 터미널 또는 새 사용자 환경에서 다시 실행해야 합니다. 단순히 대화 탭만 새로 열면 이전 환경이 남을 수 있습니다.
-
-### macOS·Linux의 Bash 터미널
-
-```bash
-read -r -s -p 'APICK API 키: ' APICK_API_KEY
-export APICK_API_KEY
-printf '\n'
-apick-subagent doctor
-# 이 터미널에서 프로젝트의 Codex 또는 Claude Code를 시작합니다.
-```
-
-macOS 기본 zsh에서는 입력 부분을 `read -rs 'APICK_API_KEY?APICK API 키: '`로 바꿉니다. 이 방식은 현재 터미널 세션에만 설정합니다. 별도로 실행한 데스크톱 앱은 이 환경을 상속하지 않을 수 있으므로 실제 도구 연결도 확인하세요. 키를 프로젝트의 `.env`, 지침 파일, 공개 MCP JSON, Git에 넣지 않습니다.
+`key_source`가 `saved`(저장된 키) 또는 `environment`(환경변수)인지 확인하세요. `none`이면 `apick-subagent login`을 다시 실행합니다.
 
 ## 3. 연결 확인과 첫 작업
 

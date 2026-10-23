@@ -11,7 +11,7 @@ npm install -g apick-subagent
 apick-subagent install
 ```
 
-Set `APICK_API_KEY` in your environment, then restart the client and run `apick-subagent doctor`. Never paste keys into chats, command arguments or public configuration. The installer preserves existing model, login and MCP settings. `apick-subagent uninstall` removes only unchanged package-owned entries and preserves keys, backups and user edits.
+Then link your key: on [My Page](https://apick.app/my_page) > API info, click **Issue connection code**, run `apick-subagent login` and paste the code at the hidden prompt. A code works once within 10 minutes, and issuing a new one invalidates the previous code. You can paste the API key itself instead. The key is verified with the server before it is saved to `.apick-subagent/credentials.json` in your user folder. Use `apick-subagent logout` to remove it. Restart the client, then run `apick-subagent doctor`, which reports `key_source` as `saved`, `environment` or `none`. The `APICK_API_KEY` environment variable still works for CI and shared machines. Never paste keys into chats, command arguments or public configuration. The installer preserves existing model, login and MCP settings. `apick-subagent uninstall` removes only unchanged package-owned entries and preserves keys, backups and user edits.
 
 Open the project and ask the main agent to delegate bulk reading to `apick-subagent`, then verify important citations. Installation alone does not prove automatic delegation; confirm actual tool calls and [usage](https://apick.app/subagent/usage). The main agent retains final decisions, file editing and code execution.
 
