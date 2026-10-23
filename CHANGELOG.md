@@ -1,3 +1,8 @@
+# 1.0.4
+
+- 요금 안내 문구를 서버와 맞췄습니다. `README.md`·`README.en.md`·`skill/SKILL.md`와 `apick_dispatch` 도구 설명에서 시행일(2026-11-06)과 소수점 올림 표기를 뺐습니다. 요금과 동작은 바뀌지 않았습니다.
+- Pricing notes now match the server: the effective date (2026-11-06) and the rounding note were removed from `README.md`, `README.en.md`, `skill/SKILL.md` and the `apick_dispatch` tool description. Prices and behavior are unchanged.
+
 # 1.0.3
 
 - 요금 안내 문구를 정리했습니다. 성공한 작업만 사용량대로 정산하고 소수점은 올림하며, 2026-11-06부터 AI 사용 작업은 기본요금 5P입니다. 요금과 동작은 바뀌지 않습니다.
