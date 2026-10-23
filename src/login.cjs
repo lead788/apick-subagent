@@ -31,7 +31,8 @@ function readSecret(prompt){
     });
 }
 
-// 입력이 연결 코드면 정규화한 코드를, 아니면 null 을 돌려준다. API 키(32자 16진수)와는 길이가 달라 섞이지 않는다.
+// 입력이 연결 코드면 정규화한 코드를, 아니면 null 을 돌려준다. API 키는 32자 16진수이거나 일부 계정처럼 더 짧은 문자열이라
+// 대문자·숫자 26자 형식과 섞이지 않는다.
 function pairingCode(input){
     const normalized=String(input||'').toUpperCase().replace(/[\s-]/g,'');
     return CODE_FORMAT.test(normalized)?normalized:null;
